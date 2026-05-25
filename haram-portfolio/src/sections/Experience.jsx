@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
-import { GraduationCap, Code2, Award, Trophy, Users, Star, Lightbulb } from 'lucide-react'
+import { GraduationCap, Code2, Award, Trophy, Star } from 'lucide-react'
 
 const timeline = [
   {

@@ -12,7 +12,7 @@ const TITLES = [
   'IoT Systems Builder',
 ]
 
-function TypingEffect({ isDark }) {
+function TypingEffect() {
   const [titleIndex, setTitleIndex] = useState(0)
   const [displayed, setDisplayed] = useState('')
   const [deleting, setDeleting] = useState(false)
@@ -26,12 +26,19 @@ function TypingEffect({ isDark }) {
       timeout = setTimeout(() => setDeleting(true), 2200)
     } else if (deleting && displayed.length > 0) {
       timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 38)
-    } else if (deleting && displayed.length === 0) {
-      setDeleting(false)
-      setTitleIndex(i => (i + 1) % TITLES.length)
     }
     return () => clearTimeout(timeout)
   }, [displayed, deleting, titleIndex])
+
+  useEffect(() => {
+    if (deleting && displayed.length === 0) {
+      const timer = setTimeout(() => {
+        setTitleIndex(i => (i + 1) % TITLES.length)
+        setDeleting(false)
+      }, 500)
+      return () => clearTimeout(timer)
+    }
+  }, [displayed, deleting])
 
   return (
     <span className="gradient-text font-display text-xl md:text-2xl font-semibold">
@@ -40,7 +47,7 @@ function TypingEffect({ isDark }) {
   )
 }
 
-function ProfileImage({ isDark }) {
+function ProfileImage() {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -269,7 +276,7 @@ export default function Hero() {
               transition={{ delay: 0.55 }}
               className="h-8 flex items-center"
             >
-              <TypingEffect isDark={isDark} />
+              <TypingEffect />
             </motion.div>
 
             {/* Tagline */}
@@ -369,7 +376,7 @@ export default function Hero() {
           {/* RIGHT: Profile image */}
           <div className="hidden lg:flex items-center justify-center h-full">
             <div className="w-full max-w-xs h-auto max-h-96">
-              <ProfileImage isDark={isDark} />
+              <ProfileImage />
             </div>
           </div>
         </div>

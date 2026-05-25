@@ -17,7 +17,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [active, setActive] = useState('Home')
   const [menuOpen, setMenuOpen] = useState(false)
-  const { theme, toggleTheme, isDark } = useTheme()
+  const { toggleTheme, isDark } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => {
